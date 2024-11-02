@@ -23,7 +23,7 @@ my class ForwardIterators does Iterator {
         my $pulled := $!current.pull-one;
         if nqp::eqaddr($pulled,IterationEnd) && nqp::elems($!iterables) {
             $!current := nqp::shift($!iterables).iterator;
-            return self.pull-one;  # recurse to handle exhaustion
+            return-rw self.pull-one;  # recurse to handle exhaustion
         }
 
         $pulled
@@ -92,7 +92,7 @@ my class ReverseIterators does Iterator {
         my $pulled := $!current.pull-one;
         if nqp::eqaddr($pulled,IterationEnd) && nqp::elems($!iterables) {
             $!current := self!next;
-            return self.pull-one;  # recurse to handle exhaustion
+            return-rw self.pull-one;  # recurse to handle exhaustion
         }
 
         $pulled

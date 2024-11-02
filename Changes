@@ -2,5 +2,8 @@ Revision history for OneSeq
 
 {{$NEXT}}
 
+0.0.2  2024-11-02T18:15:57+01:00
+    - make sure containers are *always* returned
+
 0.0.1  2024-11-02T15:56:12+01:00
     - Initial version
