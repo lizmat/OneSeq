@@ -57,7 +57,7 @@ my class ReverseIterator does Iterator {
 
     method pull-one() is raw {
         $!i
-          ?? $!reified.AT-POS(--$!i)
+          ?? nqp::atpos($!reified,--$!i)
           !! IterationEnd
     }
 
