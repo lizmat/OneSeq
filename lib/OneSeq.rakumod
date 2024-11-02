@@ -153,7 +153,7 @@ produce all of its values.
 And it does B<NOT> recurse into any C<Iterable> values that it
 encounters, so in that aspect it is B<NOT> like C<flat>.
 
-=head2 >>>
+=head2 infix >>>
 
 The infix C«>>>» operator takes any number of arguments (usually
 C<Iterable> objects), takes the B<first> argument and calls the
@@ -161,7 +161,7 @@ C<.iterator> method on it, then then produces the values for that
 iterator until exhausted, and then switches to the next argument.
 Until there are no arguments left.
 
-=head2 <<<
+=head2 infix <<<
 
 The infix C«<<<» operator takes any number of arguments (usually
 C<Iterable> objects), takes the B<last> argument and calls the

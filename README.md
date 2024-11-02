@@ -28,13 +28,13 @@ Their functionality is similar to the [`flat`](https://docs.raku.org/routine/fla
 
 And it does **NOT** recurse into any `Iterable` values that it encounters, so in that aspect it is **NOT** like `flat`.
 
->>>
----
+infix >>>
+---------
 
 The infix `>>>` operator takes any number of arguments (usually `Iterable` objects), takes the **first** argument and calls the `.iterator` method on it, then then produces the values for that iterator until exhausted, and then switches to the next argument. Until there are no arguments left.
 
-<<<
----
+infix <<<
+---------
 
 The infix `<<<` operator takes any number of arguments (usually `Iterable` objects), takes the **last** argument and calls the `.iterator` method on it, then then produces the values for that iterator until exhausted **in reverse order**, and then switches to the previous argument. Until there are no arguments left.
 
