@@ -1,0 +1,21 @@
+use Test;
+use OneSeq;
+
+plan 8;
+
+my @a = ^5;
+my @b = @a >>> @a;
+is-deeply @b, [0,1,2,3,4,0,1,2,3,4], '>>> works';
+
+my @c = @a <<< @a;
+is-deeply @c, [4,3,2,1,0,4,3,2,1,0], '<<< works';
+
+is-deeply [>>>],          ().Seq, '>>> used as meta-op without args';
+is-deeply ([>>>] @a),     @a.Seq, '>>> used as meta-op with one args';
+is-deeply ([>>>] @a, @a), @b.Seq, '>>> used as meta-op with two args';
+
+is-deeply [<<<],          ().Seq, '>>> used as meta-op without args';
+is-deeply ([<<<] @a), @a.reverse.Seq, '>>> used as meta-op with one args';
+is-deeply ([<<<] @a, @a), @c.Seq, '>>> used as meta-op with two args';
+
+# vim: expandtab shiftwidth=4

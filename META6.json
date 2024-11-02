@@ -1,0 +1,28 @@
+{
+  "auth": "zef:lizmat",
+  "authors": [
+    "Elizabeth Mattijsen"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+  ],
+  "description": "turn two or more Iterables into a single Seq",
+  "license": "Artistic-2.0",
+  "name": "OneSeq",
+  "perl": "6.d",
+  "provides": {
+    "OneSeq": "lib/OneSeq.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "https://github.com/lizmat/OneSeq.git",
+  "tags": [
+    "FLAT",
+    "NAUGHTY",
+    "REVERSE"
+  ],
+  "test-depends": [
+  ],
+  "version": "0.0.1"
+}
