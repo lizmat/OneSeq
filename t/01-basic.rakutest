@@ -1,7 +1,7 @@
 use Test;
 use OneSeq;
 
-plan 9;
+plan 14;
 
 my @a = ^5;
 my @b = @a >>> @a;
@@ -10,11 +10,11 @@ is-deeply @b, [0,1,2,3,4,0,1,2,3,4], '>>> works';
 my @c = @a <<< @a;
 is-deeply @c, [4,3,2,1,0,4,3,2,1,0], '<<< works';
 
-is-deeply [>>>],          ().Seq, '>>> used as meta-op without args';
+is-deeply  [>>>],         ().Seq, '>>> used as meta-op without args';
 is-deeply ([>>>] @a),     @a.Seq, '>>> used as meta-op with one args';
 is-deeply ([>>>] @a, @a), @b.Seq, '>>> used as meta-op with two args';
 
-is-deeply [<<<],          ().Seq, '>>> used as meta-op without args';
+is-deeply  [<<<],         ().Seq, '>>> used as meta-op without args';
 is-deeply ([<<<] @a), @a.reverse.Seq, '>>> used as meta-op with one args';
 is-deeply ([<<<] @a, @a), @c.Seq, '>>> used as meta-op with two args';
 
@@ -23,7 +23,21 @@ class A {
         (1,2,3,4,5).iterator
     }
 }
+class B {
+}
 
-is-deeply A >>> A, (1,2,3,4,5,1,2,3,4,5).Seq, 'just needs an iterator';
+is-deeply A >>> A, (1,2,3,4,5,1,2,3,4,5).Seq, '>>> just needs an iterator';
+is-deeply B >>> B, (B,B).Seq, '>>> without a specific iterator';
+is-deeply A <<< A, (5,4,3,2,1,5,4,3,2,1).Seq, '<<< just needs an iterator';
+is-deeply B <<< B, (B,B).Seq, '<<< without a specific iterator';
+
+my %h = a => [1,2,3], b => [4,5,6];
+is-deeply ([>>>] %h.sort(*.key)>>.value), (1,2,3,4,5,6).Seq,
+  '>>> can use .values';
+is-deeply ([<<<] %h.sort(*.key)>>.value), (6,5,4,3,2,1).Seq,
+  '<<< can use .values';
+
+#my @d = (1,[2,3,4,5],6,7,[8,9]) >>> 42;
+#is-deeply @d, (1,2,3,4,5,6,7,8,9,42).Seq, 'ignores containers';
 
 # vim: expandtab shiftwidth=4
