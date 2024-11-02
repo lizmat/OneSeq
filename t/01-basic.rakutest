@@ -1,7 +1,7 @@
 use Test;
 use OneSeq;
 
-plan 8;
+plan 9;
 
 my @a = ^5;
 my @b = @a >>> @a;
@@ -17,5 +17,13 @@ is-deeply ([>>>] @a, @a), @b.Seq, '>>> used as meta-op with two args';
 is-deeply [<<<],          ().Seq, '>>> used as meta-op without args';
 is-deeply ([<<<] @a), @a.reverse.Seq, '>>> used as meta-op with one args';
 is-deeply ([<<<] @a, @a), @c.Seq, '>>> used as meta-op with two args';
+
+class A {
+    method iterator() {
+        (1,2,3,4,5).iterator
+    }
+}
+
+is-deeply A >>> A, (1,2,3,4,5,1,2,3,4,5).Seq, 'just needs an iterator';
 
 # vim: expandtab shiftwidth=4
