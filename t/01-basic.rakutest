@@ -1,7 +1,7 @@
 use Test;
 use OneSeq;
 
-plan 16;
+plan 18;
 
 my @a = ^5;
 my @b = @a >>> @a;
@@ -42,7 +42,10 @@ is-deeply %h, { a => [2,3,4], b => [5,6,7] }, '>>> returns containers';
 $_++ for [<<<] %h.values;
 is-deeply %h, { a => [3,4,5], b => [6,7,8] }, '>>> returns containers';
 
-#my @d = (1,[2,3,4,5],6,7,[8,9]).values >>> 42;
-#is-deeply @d, (1,2,3,4,5,6,7,8,9,42).Seq, 'ignores containers';
+my @d = [>>>] 1,[2,3,4,5],6,7,[8,9],42;
+is-deeply @d, [1,2,3,4,5,6,7,8,9,42], '>>> ignores containers';
+
+my @d = [<<<] 1,[2,3,4,5],6,7,[8,9],42;
+is-deeply @d, [42,9,8,7,6,5,4,3,2,1], '<<< ignores containers';
 
 # vim: expandtab shiftwidth=4
