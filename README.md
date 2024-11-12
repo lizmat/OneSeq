@@ -12,11 +12,18 @@ SYNOPSIS
 use OneSeq;
 
 my @a = ^5;
-my @b = @a >>> @a;
-say @b;  # (0 1 2 3 4 0 1 2 3 4)
+my @b = <a b c d e>;
+my @c = @a >>> @b;
+say @c;  # [0 1 2 3 4 a b c d e]
 
-my @c = @a <<< @a;
-say @c;  # (4 3 2 1 0 4 3 2 1 0)
+my @d = @a <<< @b;
+say @d;  # [e d c b a 4 3 2 1 0]
+
+# as a meta-op
+my %h = a => [0,1,2], b => [3,4,5], c => [6,7,8,9];
+my @e;
+@e[$_] = $_ + 1 for [>>>] %h.values;
+say @e;  # [1 2 3 4 5 6 7 8 9 10]
 ```
 
 DESCRIPTION
@@ -26,7 +33,7 @@ DESCRIPTION
 
 Their functionality is similar to the [`flat`](https://docs.raku.org/routine/flat) method, but with the important distinction that it does **NOT** look at the containerization of the arguments. So any iterable such as a `Array` or `List` inside a `Hash` or an `Array`, **will** produce all of its values.
 
-And it does **NOT** recurse into any `Iterable` values that it encounters, so in that aspect it is **NOT** like `flat`.
+And it also does **NOT** recurse into any `Iterable` values that it encounters, so in that aspect it is **NOT** like `flat` at all.
 
 infix >>>
 ---------

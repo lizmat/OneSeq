@@ -1,7 +1,7 @@
 use Test;
 use OneSeq;
 
-plan 18;
+plan 21;
 
 my @a = ^5;
 my @b = @a >>> @a;
@@ -45,7 +45,19 @@ is-deeply %h, { a => [3,4,5], b => [6,7,8] }, '>>> returns containers';
 my @d = [>>>] 1,[2,3,4,5],6,7,[8,9],42;
 is-deeply @d, [1,2,3,4,5,6,7,8,9,42], '>>> ignores containers';
 
-my @d = [<<<] 1,[2,3,4,5],6,7,[8,9],42;
+@d = [<<<] 1,[2,3,4,5],6,7,[8,9],42;
 is-deeply @d, [42,9,8,7,6,5,4,3,2,1], '<<< ignores containers';
+
+my @e = @a >>> @a >>> @a;
+is-deeply @e, [0,1,2,3,4,0,1,2,3,4,0,1,2,3,4], 'list-associativiy >>> works';
+
+my @f = @a <<< @a <<< @a;
+is-deeply @f, [4,3,2,1,0,4,3,2,1,0,4,3,2,1,0], 'list-associativiy <<< works';
+
+# as a meta-op
+%h = a => [0,1,2], b => [3,4,5], c => [6,7,8,9];
+my @g;
+@g[$_] = $_ + 1 for [>>>] %h.values;
+is-deeply  @g, [1,2,3,4,5,6,7,8,9,10], 'works on arrays hash values';
 
 # vim: expandtab shiftwidth=4

@@ -86,7 +86,11 @@ my class ReverseIterators does Iterator {
         }
     }
 
-    method !next() { ReverseIterator.new(nqp::pop($!iterables)) }
+    method !next() {
+        nqp::istype((my $next := nqp::pop($!iterables)),List)
+          ?? $next.reverse.iterator  # optimized to not need reifying
+          !! ReverseIterator.new($next)
+    }
 
     method pull-one() is raw {
         my $pulled := $!current.pull-one;
@@ -130,11 +134,18 @@ OneSeq - turn two or more Iterables into a single Seq
 use OneSeq;
 
 my @a = ^5;
-my @b = @a >>> @a;
-say @b;  # (0 1 2 3 4 0 1 2 3 4)
+my @b = <a b c d e>;
+my @c = @a >>> @b;
+say @c;  # [0 1 2 3 4 a b c d e]
 
-my @c = @a <<< @a;
-say @c;  # (4 3 2 1 0 4 3 2 1 0)
+my @d = @a <<< @b;
+say @d;  # [e d c b a 4 3 2 1 0]
+
+# as a meta-op
+my %h = a => [0,1,2], b => [3,4,5], c => [6,7,8,9];
+my @e;
+@e[$_] = $_ + 1 for [>>>] %h.values;
+say @e;  # [1 2 3 4 5 6 7 8 9 10]
 
 =end code
 
@@ -150,8 +161,8 @@ at the containerization of the arguments.  So any iterable such as
 a C<Array> or C<List> inside a C<Hash> or an C<Array>, B<will>
 produce all of its values.
 
-And it does B<NOT> recurse into any C<Iterable> values that it
-encounters, so in that aspect it is B<NOT> like C<flat>.
+And it also does B<NOT> recurse into any C<Iterable> values that it
+encounters, so in that aspect it is B<NOT> like C<flat> at all.
 
 =head2 infix >>>
 

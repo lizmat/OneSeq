@@ -2,8 +2,12 @@ Revision history for OneSeq
 
 {{$NEXT}}
 
+0.0.3  2024-11-12T13:35:31+01:00
+    - Handle Lists specifically in the reverse case, because they
+      already come with an optimized iterator for .reverse
+
 0.0.2  2024-11-02T18:15:57+01:00
-    - make sure containers are *always* returned
+    - Make sure containers are *always* returned
 
 0.0.1  2024-11-02T15:56:12+01:00
     - Initial version
