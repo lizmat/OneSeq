@@ -1,6 +1,8 @@
 Revision history for OneSeq
 
 {{$NEXT}}
+
+0.0.4  2025-01-15T20:47:55+01:00
     - Add dependencies on ForwardIterables and ReverseIterables
     - Remove code now handled by dependencies
     - Update copyright year

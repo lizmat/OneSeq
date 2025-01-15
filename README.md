@@ -29,7 +29,7 @@ say @e;  # [1 2 3 4 5 6 7 8 9 10]
 DESCRIPTION
 ===========
 
-`OneSeq` is a module that provides two infix operators: `>>>` and `<<<`, each of which produces a single `Seq` object from the given arguments.
+The `OneSeq` distribution provides two infix operators: `>>>` and `<<<`, each of which produces a single `Seq` object from the given arguments.
 
 Their functionality is similar to the [`flat`](https://docs.raku.org/routine/flat) method, but with the important distinction that it does **NOT** look at the containerization of the arguments. So any iterable such as a `Array` or `List` inside a `Hash` or an `Array`, **will** produce all of its values.
 
