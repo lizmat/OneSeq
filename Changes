@@ -1,6 +1,9 @@
 Revision history for OneSeq
 
 {{$NEXT}}
+    - Add dependencies on ForwardIterables and ReverseIterables
+    - Remove code now handled by dependencies
+    - Update copyright year
 
 0.0.3  2024-11-12T13:35:31+01:00
     - Handle Lists specifically in the reverse case, because they

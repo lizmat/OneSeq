@@ -6,6 +6,8 @@
   "build-depends": [
   ],
   "depends": [
+    "ForwardIterables:ver<0.0.3+>:auth<zef:lizmat>",
+    "ReverseIterables:ver<0.0.1+>:auth<zef:lizmat>"
   ],
   "description": "turn two or more Iterables into a single Seq",
   "license": "Artistic-2.0",
